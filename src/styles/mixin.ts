@@ -4,7 +4,7 @@ import { strSplit } from '@/utils/common';
 
 export const container = css`
   height: 100%;
-  max-width: 1000px;
+  width: 1000px;
   margin: 0 auto;
   border-left: 2px solid red;
   border-right: 2px solid red;
