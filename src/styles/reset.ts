@@ -35,6 +35,9 @@ const GlobalReset = createGlobalStyle`
     display: inline-block;
     text-decoration: none;
   }
+  b {
+    font-size: inherit;
+  }
 `;
 
 export default GlobalReset;

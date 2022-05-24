@@ -18,4 +18,6 @@ const api = {
   post: async <P, R>(url: string, params: P): Promise<R> => await instance.post(url, params).then(responseBody),
 }
 
-export const getSummonerInfo = (name: string) => api.get<{ summoner: SummonerDto }>(`/summoner/${name}`)
+export const getSummonerInfo = (name: string) => api.get<{ summoner: SummonerDto }>(`/summoner/${name}`).then(res => res.summoner)
+
+export const getSummonerMosts = (name: string) => api.get<SummonerMostsDto>(`/summoner/${name}/mostInfo`)

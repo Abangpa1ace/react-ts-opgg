@@ -5,7 +5,7 @@ import s, { container, theme } from '@/styles';
 const Header = () => {
   return (
     <ScHeader>
-      <section>hi</section>
+      <section className="container">hi</section>
     </ScHeader>
   );
 };

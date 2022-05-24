@@ -1,3 +1,4 @@
+/** getSummonerInfo */
 interface Tier {
   division: string
   imageUrl: string
@@ -35,3 +36,26 @@ type SummonerDto = {
   profileImageUrl: string;
   url: string;
 } | null
+
+/** getSummonerMosts */
+interface MostChampion {
+  id: number;
+  imageUrl: string;
+  key: string;
+  losses: number;
+  name: string;
+  wins: number;
+  assists?: number;
+  cs?: number;
+  deaths?: number;
+  games?: number;
+  kills?: number;
+  rank?: number;
+}
+
+type SummonerMosts = {
+  champions: MostChampion[];
+  recentWinRate: MostChampion[];
+}
+
+type SummonerMostsDto = SummonerMosts | null

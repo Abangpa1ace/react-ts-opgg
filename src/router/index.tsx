@@ -4,6 +4,7 @@ import { useRoutes } from "react-router-dom";
 import RouterTitle from "react-router-title";
 import HomePage from "@/views/pages/HomePage";
 import pages from "./pages";
+import s from '@/styles'
 
 const routes = [
   {
@@ -25,10 +26,11 @@ const Router = () => {
   );
 };
 
-const ScRouter = styled.div`
-  > div > section {
-    ${container}
-  }
+export const ScRouter = styled.div` 
+  ${s('bgc(#eaeaea);')}
+  min-height: calc(100vh - 97px);
+ 
+  section.container { ${container}; }
 `;
 
 export default Router;

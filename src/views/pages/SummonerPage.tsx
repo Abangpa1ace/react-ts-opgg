@@ -1,37 +1,54 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import SummonerHeader from "@/views/components/summoner/containers/SummonerHeader";
-import { getSummonerInfo } from '@/services'
-import s from '@/styles'
+import SummonerHeader from "@/views/components/summoner/SummonerHeader";
+import SummonerInfoLeft, { ScSummonerInfoLeft } from "@/views/components/summoner/SummonerInfoLeft"
+import { getSummonerInfo, getSummonerMosts } from '@/services'
+import useReactRouter from "@/hooks/useReactRouter";
+import s from '@/styles';
+
+type SummonerInfo = {
+  summoner: SummonerDto;
+  summonerMosts: SummonerMostsDto;
+}
 
 const SummonerPage = () => {
-  const [summonerInfo, setSummonerInfo] = useState<SummonerDto>(null);
+  const { query: { name } } = useReactRouter();
+  const [summonerInfo, setSummonerInfo] = useState<SummonerInfo>({
+    summoner: null,
+    summonerMosts: null,
+  })
 
   useEffect(() => {
-    (async () => {
-      const { summoner } = await getSummonerInfo('탈모전사프리큐어');
-      setSummonerInfo(summoner)
-    })()
-  }, [])
+    fetchSummoner();
+  }, [name])
 
-  console.log('test', summonerInfo)
+  const fetchSummoner = async () => {
+    const summonerName = name as string
+    let [summoner, summonerMosts] = await Promise.all([
+      getSummonerInfo(summonerName), 
+      getSummonerMosts(summonerName),
+    ])
+    setSummonerInfo({ summoner, summonerMosts })
+  }
 
   return (
     <ScSummonerPage>
-      <section>
-        <SummonerHeader summonerInfo={summonerInfo} />
-        <div className="info-container">
-          {/* <SummonerInfoLeft />
-          <SummonerInfoRight /> */}
-        </div>
-      </section>
+      <SummonerHeader summoner={summonerInfo?.summoner} />
+      <main className="summoner-info">
+        <section className="container">
+          <SummonerInfoLeft summoner={summonerInfo?.summoner} summonerMosts={summonerInfo?.summonerMosts} />
+          {/* <SummonerInfoRight /> */}
+        </section>
+      </main>
     </ScSummonerPage>
   );
 };
 
 const ScSummonerPage = styled.div`
-  section {
-    min-height: calc(100vh - 97px);
+  .summoner-info { ${s('mt(10);')};
+    .container { ${s('flex; gap(10);')}
+      ${ScSummonerInfoLeft} { width: 300px; }
+    }
   }
 `;
 

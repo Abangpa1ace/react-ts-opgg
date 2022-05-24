@@ -6,8 +6,6 @@ export const container = css`
   height: 100%;
   width: 1000px;
   margin: 0 auto;
-  border-left: 2px solid red;
-  border-right: 2px solid red;
 `;
 
 const s = (styleContext: string) => {
