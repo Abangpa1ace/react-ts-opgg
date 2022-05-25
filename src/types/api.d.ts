@@ -1,5 +1,5 @@
 /** getSummonerInfo */
-interface Tier {
+interface TierType {
   division: string
   imageUrl: string
   lp: number
@@ -11,15 +11,15 @@ interface Tier {
   tierRankPoint: number
 }
 
-interface PreviousTier extends Tier {
+interface PrevTierType extends TierType {
   season: number;
 }
 
-type League = {
+type LeagueType = {
   hasResults: true;
   wins: number;
   losses: number;
-  tierRank: Tier;
+  tierRank: TierType;
 }
 
 type SummonerDto = {
@@ -27,10 +27,10 @@ type SummonerDto = {
     rank: number;
     rankPercentOfTop: number;
   };
-  leagues: League[]
+  leagues: LeagueType[]
   level: number;
   name: string;
-  previousTiers: PreviousTier[];
+  previousTiers: PrevTierType[];
   profileBackgroundImageUrl: string;
   profileBorderImageUrl: string;
   profileImageUrl: string;
@@ -38,7 +38,7 @@ type SummonerDto = {
 } | null
 
 /** getSummonerMosts */
-interface MostChampion {
+interface ChampionType {
   id: number;
   imageUrl: string;
   key: string;
@@ -53,9 +53,77 @@ interface MostChampion {
   rank?: number;
 }
 
-type SummonerMosts = {
-  champions: MostChampion[];
-  recentWinRate: MostChampion[];
+type SummonerMostsType = {
+  champions: ChampionType[];
+  recentWinRate: ChampionType[];
 }
 
-type SummonerMostsDto = SummonerMosts | null
+type SummonerMostsDto = SummonerMostsType | null
+
+/** getSummonerMatches */
+type StatType = {
+  general: {
+    assist: number;
+    contributionForKillRate: string;
+    cs: number;
+    csPerMin: number;
+    death: number;
+    goldEarned: number;
+    kdaString: string;
+    kill: number;
+    largestMultiKillString: string;
+    opScoreBadge: string;
+    totalDamageDealtToChampions: number;
+  },
+  ward: {
+    sightWardsBought: number;
+    visionWardsBought: number;
+  }
+}
+
+type GameType = {
+  champion: {
+    imageUrl: string;
+    level: number;
+  }
+  createDate: number;
+  gameId: string;
+  gameLength: number;
+  gameType: string;
+  isWin: boolean;
+  items: { imageUrl: string }[];
+  mapInfo: null | any;
+  mmr: number;
+  needRenew: boolean;
+  peak: string[];
+  spells: { imageUrl: string }[];
+  stats: StatType;
+  summonerId: string;
+  summonerName: string;
+  tierRankShort: string;
+}
+
+type PositionType = {
+  games: number;
+  losses: number;
+  position: string;
+  positionName: string;
+  wins: number;
+}
+
+type SummaryType = {
+  assists: number;
+  deaths: number;
+  kills: number;
+  losses: number;
+  wins: number;
+}
+
+type SummonerMatchesType = {
+  champions: ChampionType[];
+  games: GameType[];
+  positions: PositionType[];
+  summary: SummaryType;
+}
+
+type SummonerMatchesDto = SummonerMatchesType | null;

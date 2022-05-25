@@ -38,6 +38,10 @@ const GlobalReset = createGlobalStyle`
   b {
     font-size: inherit;
   }
+  em {
+    font-style: initial;
+    font-size: inherit;
+  }
 `;
 
 export default GlobalReset;

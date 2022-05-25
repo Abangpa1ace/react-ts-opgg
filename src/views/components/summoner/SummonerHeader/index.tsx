@@ -21,7 +21,7 @@ const SummonerHeader: React.FC<Props> = ({ summoner }) => {
 }
 
 const ScSummonerHeader = styled.div`
-  ${s(`h(175); pl(21); -b(${theme.whiteThree}); py(15,12); c(${theme.slateGrey})`)}
+  ${s(`h(175); pl(21); -b(${theme.white3}); py(15,12); c(${theme.slateGrey})`)}
 `
 
 export default SummonerHeader

@@ -1,36 +1,34 @@
 import { theme } from "@/styles";
 import { setDecimal } from "./number";
 
-export const strSplit = (str: string, cr = ' ') => {
-  return str.split(cr).map(s => s.trim()).filter(is => is);
-}
-
-export const setTierRankText = (tierRank: Tier) => {
+export const setTierRankText = (tierRank: TierType) => {
   return `${tierRank?.tier}${!['Master', 'Grandmaster', 'Challenger'].includes(tierRank?.tier) ? ' ' + tierRank?.shortString[1] : ''}`
 }
 
-export const setWinRate = (wins: number, losses: number) => {
+export const setWinRate = (wins: number | undefined, losses: number | undefined, defaultColor?: string) => {
+  if (wins === undefined || losses === undefined) return null;
   const value = Math.floor(wins / (wins + losses) * 100)
-  const color = theme[value > 60 ? 'reddish' : 'brownishGrey']
+  const color = value >= 60 ? theme.reddish : defaultColor || theme.brownishGrey;
 
   return { value, text: `${value}%`, color }
 }
 
-export const setKdaScore = ({ kills, deaths, assists }: any, floor = 2) => {
-  const value = setDecimal(kills + assists, deaths, 2);
+export const setKdaScore = (data: any, defaultColor?: string, floor = 2) => {
+  if (!data) return null
+  const value = setDecimal(data.kills + data.assists, data.deaths, floor);
 
-  const colorKey = (() => {
+  const color = (() => {
     switch (true) {
       case +value >= 5:
-        return 'yellowOchre';
+        return theme.yellowOchre;
       case +value >= 4:
-        return 'bluish';
+        return theme.bluish;
       case +value >= 3:
-        return 'blueyGreen';
+        return theme.blueyGreen;
       default:
-        return 'brownishGrey';
+        return defaultColor || theme.brownishGrey;
     }
   })()
 
-  return { value, text: `${value}:1 평점`, color: theme[colorKey] }
+  return { value, text: `${value}:1 평점`, color }
 }

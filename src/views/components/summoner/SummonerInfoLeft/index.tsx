@@ -5,14 +5,13 @@ import MostsTabList from './MostsTabList';
 
 type Props = {
   summoner: SummonerDto;
-  summonerMosts: SummonerMostsDto;
 }
 
-const SummonerInfoLeft: React.FC<Props> = ({ summoner, summonerMosts }) => {
+const SummonerInfoLeft: React.FC<Props> = ({ summoner }) => {
   return (
     <ScSummonerInfoLeft>
       {summoner?.leagues.map(league => <TierRankContainer league={league} key={league.tierRank.name} />)}
-      <MostsTabList summonerMosts={summonerMosts} />
+      <MostsTabList />
     </ScSummonerInfoLeft>
   )
 }

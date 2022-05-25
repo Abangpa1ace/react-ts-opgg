@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import customStyles from './asset';
-import { strSplit } from '@/utils/common';
+import { strSplit } from '@/utils/string';
 
 export const container = css`
   height: 100%;

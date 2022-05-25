@@ -21,3 +21,5 @@ const api = {
 export const getSummonerInfo = (name: string) => api.get<{ summoner: SummonerDto }>(`/summoner/${name}`).then(res => res.summoner)
 
 export const getSummonerMosts = (name: string) => api.get<SummonerMostsDto>(`/summoner/${name}/mostInfo`)
+
+export const getSummonerMatches = (name: string) => api.get<SummonerMatchesDto>(`/summoner/${name}/matches`)

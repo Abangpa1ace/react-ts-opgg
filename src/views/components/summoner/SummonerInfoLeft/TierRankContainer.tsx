@@ -5,7 +5,7 @@ import { setComma } from '@/utils/number';
 import { setTierRankText, setWinRate } from '@/utils/common';
 
 type Props = {
-  league: League
+  league: LeagueType
 }
 
 const TierRankContainer: React.FC<Props> = ({ league }) => {
@@ -42,7 +42,7 @@ const TierRankContainer: React.FC<Props> = ({ league }) => {
 }
 
 const ScTierRankContainer = styled.div`
-  ${s(`flex; mb(8); p(10,8); bgc(${theme.whiteFour}); -a(${theme.silverThree});`)}
+  ${s(`flex; mb(8); p(10,8); bgc(${theme.white4}); -a(${theme.silver3});`)}
 
   .image-wrapper {
     ${s(`flex-center; wh(104); c(${theme.slateGrey});`)}
