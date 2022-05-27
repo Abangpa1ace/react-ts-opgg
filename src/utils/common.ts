@@ -7,7 +7,7 @@ export const setTierRankText = (tierRank: TierType) => {
 
 export const setWinRate = (wins: number | undefined, losses: number | undefined, defaultColor?: string) => {
   if (wins === undefined || losses === undefined) return null;
-  const value = Math.floor(wins / (wins + losses) * 100)
+  const value = Math.floor((!(wins + losses) ? 0 : wins / (wins + losses)) * 100)
   const color = value >= 60 ? theme.reddish : defaultColor || theme.brownishGrey;
 
   return { value, text: `${value}%`, color }
@@ -27,6 +27,22 @@ export const setKdaScore = (data: any, defaultColor?: string, floor = 2) => {
         return theme.blueyGreen;
       default:
         return defaultColor || theme.brownishGrey;
+    }
+  })()
+
+  return { value, text: `${value}:1 평점`, color }
+}
+
+export const setAverScore = (data: any, defaultColor?: string, floor = 2) => {
+  if (!data) return null;
+  const value = setDecimal(data.kills + data.assists, data.deaths, floor);
+
+  const color = (() => {
+    switch (true) {
+      case +value >= 6:
+        return theme.yellowOchre;
+      default:
+        return defaultColor || theme.greyishBrown;
     }
   })()
 

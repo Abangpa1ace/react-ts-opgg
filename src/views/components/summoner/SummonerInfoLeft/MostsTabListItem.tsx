@@ -38,10 +38,10 @@ const MostsTabListItem: React.FC<Props> = ({ champion, category }) => {
     :
       <>
         <div className='win-lose'>
-          <p className='rate' style={{ color: winRate?.color }}>{winRate.text}</p>
+          <p className='rate' style={{ color: winRate?.color }}>{winRate?.text}</p>
           <div className='graph'>
-            <p className='wins' style={{ width: `${winRate.value}%`, minWidth: '30%' }}>{champion.wins}승</p>
-            <p className='losses' style={{ width: `${100 - winRate.value}%`, minWidth: '30%' }}>{champion.losses}패</p>
+            <p className='wins' style={{ width: `${winRate?.value}%`, minWidth: '30%' }}>{champion.wins}승</p>
+            <p className='losses' style={{ width: `${100 - (winRate?.value || 0)}%`, minWidth: '30%' }}>{champion.losses}패</p>
           </div>
         </div>
       </>

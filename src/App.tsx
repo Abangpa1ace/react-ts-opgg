@@ -1,5 +1,5 @@
 import Header from "@/views/layouts/Header";
-import Router, { ScRouter } from "@/router";
+import Router from "@/router";
 
 const App = () => {
   return (

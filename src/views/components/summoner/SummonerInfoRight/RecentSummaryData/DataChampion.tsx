@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import s, { theme } from '@/styles';
-import { setKdaScore, setWinRate } from '@/utils/common';
+import { setAverScore, setKdaScore, setWinRate } from '@/utils/common';
 
 type Props = {
   champions: Undefinable<ChampionType[]>
@@ -12,8 +12,9 @@ const DataChampion: React.FC<Props> = ({ champions }) => {
     <ScDataChampion>
       {champions?.length && [0,1,2].map((idx) => {
         const champion = champions[idx]
+        const scoreInfo =setAverScore(champion);
           return (
-            <div key={champion?.id} className='champion-item'>
+            <div key={champion?.id + idx} className='champion-item'>
               <img src={champion?.imageUrl || '/asset/img/empty-champion.svg'} />
               <div className='desc'>
                 {!!champion
@@ -25,8 +26,8 @@ const DataChampion: React.FC<Props> = ({ champions }) => {
                           <em style={{ color: setWinRate(champion.wins, champion.losses, theme.black)?.color }}><b>{setWinRate(champion.wins, champion.losses)?.value}</b>% </em>
                           ({champion.wins}승 {champion.losses}패)
                         </span>
-                        <span className={`score ${+(setKdaScore(champion) || {value:0}).value >= 6 ? 'yellow' : ''}`}>
-                          {setKdaScore(champion)?.text}
+                        <span className='score' style={{ color: scoreInfo?.color }}>
+                          {scoreInfo?.text}
                         </span>
                       </p>
                     </>

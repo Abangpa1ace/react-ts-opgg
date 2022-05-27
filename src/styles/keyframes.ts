@@ -1,11 +1,11 @@
 import { keyframes } from 'styled-components'
 
-export const extendWidth = (length?: number | string) => keyframes`
+export const extendHeight = (length?: number | string) => keyframes`
   from {
-    width: 0;
+    min-height: 0;
   }
   to {
-    width: ${length || 'initial'}
+    min-height: ${length || 'initial'}
   }
 `
 
@@ -25,7 +25,7 @@ export const showHide = keyframes`
     opacity: 0;
   }
   25% {
-    opacity: 1
+    opacity: 0
   }
   50% {
     opacity: 1

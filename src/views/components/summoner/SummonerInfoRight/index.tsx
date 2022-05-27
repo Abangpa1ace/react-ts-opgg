@@ -1,54 +1,56 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
 import useReactRouter from "@/hooks/useReactRouter";
 import RecentSummaryData from './RecentSummaryData'
-import { getSummonerMatches } from '@/services';
+import { getSummonerMatchDetail, getSummonerMatches } from '@/services';
+import { TAB_LIST } from '@/constants';
 import s, { theme } from '@/styles';
+import MatchGameItem from './MatchGameItem';
 
-type Props = {
-  summoner: SummonerDto;
-}
-
-type TabType = {
-  '전체': '전체',
-  '솔랭': '솔로랭크',
-  '자유 5:5 랭크': '자유랭크', 
-  '일반': '일반게임',
-  '무작위 총력전': '무작위 총력전',
-}
-
-const tabList: TabType = {
-  '전체': '전체',
-  '솔랭': '솔로랭크',
-  '자유 5:5 랭크': '자유랭크', 
-  '일반': '일반게임',
-  '무작위 총력전': '무작위 총력전',
-}
-
-const SummonerInfoRight: React.FC<Props> = ({ summoner }) => {
+const SummonerInfoRight: React.FC = () => {
   const { query: { name } } = useReactRouter();
   const [summonerMatches, setSummonerMatches] = useState<SummonerMatchesDto>(null)
+  const summonerMatchGames = useRef<MatchGameType[]>([]);
   const [focusTab, setFocusTab] = useState<keyof TabType>('전체');
-  
+  const [showMatchGames, setShowMatchGames] = useState<MatchGameType[]>([]);
+
   useEffect(() => {
     fetchSummonerMatches();
   }, [name])
 
+  useEffect(() => {
+    const matchGames = summonerMatchGames.current.filter(match => focusTab === '전체' ? true : focusTab === match.gameType);
+    setShowMatchGames(matchGames)
+  }, [focusTab])
+
   const fetchSummonerMatches = async () => {
-    const summonerMatches = await getSummonerMatches(name as string)
-    setSummonerMatches(summonerMatches)
-    console.log(summonerMatches)
+    const matches = await getSummonerMatches(name as string)
+    const games = await matches?.games as GameType[]
+    setSummonerMatches(matches)
+
+    const matchGames = await fetchDetailsByGames(games);
+    summonerMatchGames.current = matchGames
+    setShowMatchGames(matchGames)
   }
 
+  const fetchDetailsByGames = async (games: GameType[]) => {
+    const details = await Promise.all(games.map((game) => getSummonerMatchDetail(name as string, game.gameId)));
+    return details.map(detail => {
+      const game = games.find(game => game.gameId === detail?.gameId)
+      return { ...detail, ...game } as MatchGameType
+    })
+  }
+
+  const setGameTabs = () => {
+    return Object.entries(TAB_LIST).map(([k,v]) => 
+      <p key={k} onClick={() => setFocusTab(k as keyof TabType)} className={`tab ${k === focusTab ? 'on' : ''}`}>{v}</p>)
+  }
 
   return (
     <ScSummonerInfoRight>
-      <GameTabs>
-        {Object.entries(tabList).map(([k,v]) => 
-          <p key={k} onClick={() => setFocusTab(k as keyof TabType)} className={`tab ${k === focusTab ? 'on' : ''}`}>{v}</p>
-        )}
-      </GameTabs>
+      <GameTabs>{setGameTabs()}</GameTabs>
       <RecentSummaryData summonerMatches={summonerMatches} />
+      {showMatchGames?.map(match => <MatchGameItem match={match} key={match.gameId}/>)}
     </ScSummonerInfoRight>
   )
 }

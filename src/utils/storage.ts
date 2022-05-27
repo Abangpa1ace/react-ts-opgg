@@ -6,9 +6,9 @@ export const setStorage = (key: string, value: storageValue, isLocal = true): vo
   (isLocal ? localStorage : sessionStorage).setItem(key, String(value))
 }
 
-export const getStorage = (key: string, isLocal = true): void => {
+export const getStorage = <T>(key: string, isLocal = true): T | null => {
   let savedValue = (isLocal ? localStorage : sessionStorage).getItem(key)
-  if (!savedValue) throw 'None Value'
+  if (!savedValue) return null;
 
   return typeof JSON.parse(savedValue) !== 'object' ? savedValue : JSON.parse(savedValue)
 }

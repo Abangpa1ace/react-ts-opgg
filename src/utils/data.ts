@@ -1,6 +1,17 @@
-export const setMBTI = (list: TestSubmitList): TestCodes => {
-  const obj = { I: 0, E: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 }
-  list.forEach(r => obj[r.result]++)
-  
-  return `${obj.E > obj.I ? 'E' : 'I'}${obj.S > obj.N ? 'S' : 'N'}${obj.T > obj.F ? 'T' : 'F'}${obj.J > obj.P ? 'J' : 'P'}`
-}
+import { KILLS_TEXT } from '@/constants';
+import { theme } from '@/styles';
+
+type GameStatus = 'win' | 'lose' | 'drop'
+
+export const getStatus = (match: MatchGameType): GameStatus => !match.mmr ? 'drop' : match.isWin ? 'win' : 'lose'
+
+export const getSuperTags = (info: StatGeneralType): { text: string, background: string, borderColor: string }[] => {
+  let result = [];
+
+  for (let key in info) {
+    if (key === 'largestMultiKillString' && !!info[key]) result.push({ text: KILLS_TEXT[info[key]], background: theme.tomato, borderColor: theme.reddish2 })
+    else if (key === 'opScoreBadge' && !!info[key]) result.push({ text:info[key], background: theme.amethyst, borderColor: theme.warmPurple })
+  }
+
+  return result;
+} 

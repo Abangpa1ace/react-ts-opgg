@@ -33,8 +33,8 @@ const MostsTabList: React.FC = ({ }) => {
   return (
     <ScMostsTabList>
       <ul className='tab-buttons'>
-        {!!summonerMosts && Object.keys(summonerMosts as SummonerMostsType).map(k => 
-          <li key={k} onClick={() => setTab(k as SummonerMostKey)} className={`tab ${tab === k && 'on'}`}>
+        {!!summonerMosts && Object.keys(summonerMosts as SummonerMostsType).map((k,i) => 
+          <li key={k+i} onClick={() => setTab(k as SummonerMostKey)} className={`tab ${tab === k && 'on'}`}>
             {tabText[k as keyof SummonerMostsType]}
           </li>
         )}

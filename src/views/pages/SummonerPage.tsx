@@ -26,7 +26,7 @@ const SummonerPage = () => {
       <main className="summoner-info">
         <section className="container">
           <SummonerInfoLeft summoner={summonerInfo} />
-          <SummonerInfoRight summoner={summonerInfo} />
+          <SummonerInfoRight />
         </section>
       </main>
     </ScSummonerPage>
