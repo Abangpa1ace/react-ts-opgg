@@ -3,7 +3,7 @@ import styled from "styled-components";
 import SummonerHeader from "@/views/components/summoner/SummonerHeader";
 import SummonerInfoLeft, { ScSummonerInfoLeft } from "@/views/components/summoner/SummonerInfoLeft"
 import SummonerInfoRight, { ScSummonerInfoRight } from "@/views/components/summoner/SummonerInfoRight"
-import { getSummonerInfo } from '@/services'
+import { getItemsInfo, getSummonerInfo } from '@/services'
 import useReactRouter from "@/hooks/useReactRouter";
 import s from '@/styles';
 

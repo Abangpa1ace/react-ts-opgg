@@ -156,3 +156,33 @@ type SummonerMatchDetailDto = {
 } | null
 
 type SummonerMatchDetailsDto = SummonerMatchDetailDto[];
+
+/** getItemsInfo */
+
+type ItemInfoType = {
+  colloq: "string",
+  description: "string",
+  gold: {
+    base: number,
+    purchasable: boolean, 
+    total: number,
+    sell: number,
+  },
+  image: {
+    full: string,
+    group: string,
+    h: number,
+    sprite: string,
+    w: number,
+    x: number,
+    y: number,
+  },
+  into: string[],
+  maps: { [K in number]: boolean },
+  name: string,
+  plaintext: string,
+  stats: { [K in string]: number },
+  tags: string[],
+}
+
+type ItemsInfoDto = { [K in number]: ItemInfoType }

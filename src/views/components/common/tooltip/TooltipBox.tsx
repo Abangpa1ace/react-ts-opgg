@@ -17,7 +17,7 @@ const TooltipBox: React.FC<Props> = ({ message, style, type }) => {
 }
 
 const ScTooltipBox = styled.div`
-  ${s(`abs; max-w(150); p(5,8); bgc(${theme.darkGrey}); c(#fff); fs(12,16); br(4); z(1);`)}
+  ${s(`abs; w(170); p(6,10); bgc(${theme.darkGrey}); c(#fff); fs(12,16); br(4); z(1);`)}
   transform: translateX(calc(-50% + 12px));
 
   &:after ${s(`cnt(''); abs; wh(0);`)}

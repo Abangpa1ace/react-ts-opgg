@@ -3,33 +3,43 @@ import styled from 'styled-components'
 import s, { theme } from '@/styles';
 import { getStatus } from '@/utils/data';
 import { STATUS_STYLES } from '@/constants';
-import RPortalTooltip from '@/views/components/common/hoc/RPortalToolTip';
+import RPortalTooltip from '@/views/components/common/hoc/RPortalTooltip';
+import { useRecoilValue } from 'recoil';
+import { itemsInfoSelector } from '@/recoil/store';
 
 type Props = {
   match: MatchGameType
 }
 
 const SummaryItems: React.FC<Props> = ({ match }) => {
+  const itemsInfo = useRecoilValue(itemsInfoSelector);
+
+  const items = match.items.slice(0,-1);
+  const ward = match.items[match.items.length - 1];
+
   const style = STATUS_STYLES[getStatus(match)];
-  let buyItems = match.items.slice(0,-1);
-  const wardItem = match.items[match.items.length - 1];
 
   const setItems = () => {
     return Array.from({ length: 6 }, (_,i) => i).map(i => {
-      const item = buyItems[i];
+      const item = items[i];
       return item 
-        ? <RPortalTooltip message={'hihihihihihihihihihi!'} key={item.imageUrl + i} className='image-item'>
+        ? <RPortalTooltip message={setItemDesc(item.imageUrl)} key={item.imageUrl + i} className='image-item'>
             <img src={item.imageUrl} />
           </RPortalTooltip>
         : <span className='image-item placeholder' style={{ background: style.placeholderBackground }} key={'no-item' + i} />
     })
   }
 
+  const setItemDesc = (imageUrl: string) => {
+    const key = imageUrl.split('/').pop()?.slice(0,-4);
+    return itemsInfo[+(key || 0)].plaintext 
+  }
+
   return (
     <ScSummaryItems>
       <div className='item-images'>
         {setItems()}
-        <img src={wardItem?.imageUrl} className='image-item' />
+        <img src={ward?.imageUrl} className='image-item' />
         <span className='image-item item-logo' style={{ background: style.color}}>Item</span>
       </div>
       <p className='ward-count'>

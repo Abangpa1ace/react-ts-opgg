@@ -18,8 +18,8 @@ const getPosition = (ref: React.RefObject<HTMLSpanElement>, gap = 5): PosType =>
   const rect = ref.current?.getBoundingClientRect() || { top: 0, left: 0 }
   const h = ref.current?.clientHeight as number
   const isAbove = rect?.top + h/2 <= window.innerHeight / 2
-
-  const top = rect.top + (isAbove ? h+gap : -(h+gap));
+  console.log(isAbove)
+  const top = rect.top + (isAbove ? h+gap : -(h*2)-gap);
 
   return {
     style: { left: rect?.left, top },
@@ -34,7 +34,6 @@ const RPortalTooltip: React.FC<Props> = ({ children, message, className }) => {
 
   const handleMouseOver = () => {
     pos.current = getPosition(ref);
-    console.log(pos.current)
     setShow(true)
   }
 

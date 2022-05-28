@@ -16,9 +16,15 @@ type Props = {
 const SearchRecentItem: React.FC<Props> = ({ name, needDelete, isLike, onClickItem, onClickDelete, onToggleLike }) => {
   const [like, setLike] = useState<boolean>(isLike);
 
-  const handleToggleLike = () => {
+  const handleToggleLike = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
     setLike(like => !like)
     onToggleLike(name)
+  }
+
+  const handleClickDelete = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation()
+    onClickDelete(name)
   }
 
   return (
@@ -28,7 +34,7 @@ const SearchRecentItem: React.FC<Props> = ({ name, needDelete, isLike, onClickIt
         <button onClick={handleToggleLike} className='like-btn'>
           <FiStar className={like ? 'like' : ''} />
         </button>
-        {needDelete ? <button onClick={() => onClickDelete(name)} className='delete-btn'><VscClose /></button> : <></>}
+        {needDelete ? <button onClick={handleClickDelete} className='delete-btn'><VscClose /></button> : <></>}
       </div>
     </ScSearchRecentItem>
   )

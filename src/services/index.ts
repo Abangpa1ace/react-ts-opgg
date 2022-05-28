@@ -25,3 +25,5 @@ export const getSummonerMosts = (name: string) => api.get<SummonerMostsDto>(`/su
 export const getSummonerMatches = (name: string) => api.get<SummonerMatchesDto>(`/summoner/${name}/matches`)
 
 export const getSummonerMatchDetail = (name: string, gameId: string) => api.get<SummonerMatchDetailDto>(`/summoner/${name}/matchDetail/${gameId}`)
+
+export const getItemsInfo = () => axios.get('http://ddragon.leagueoflegends.com/cdn/10.15.1/data/ko_KR/item.json').then(res => res.data.data);
