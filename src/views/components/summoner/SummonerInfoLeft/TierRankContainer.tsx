@@ -21,7 +21,7 @@ const TierRankContainer: React.FC<Props> = ({ league }) => {
             <p className='games'>총 {setComma(wins+losses)}게임</p>
             <p className='tier-rank'>{setTierRankText(league.tierRank)}</p>
             <p className='lp'><b>{lp}LP</b> / {wins}승 {losses}패</p>
-            <p className='win-rate'>승률 {setWinRate(wins, losses).text}</p>
+            <p className='win-rate'>승률 {setWinRate(wins, losses)?.text}</p>
           </>
 
         }

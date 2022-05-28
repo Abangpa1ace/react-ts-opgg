@@ -14,7 +14,7 @@ const DataPosition: React.FC<Props> = ({ positions }) => {
       <p className='title'>선호 포지션</p>
       {positions?.length && positions.sort((a,b) => b.games - a.games).slice(0,2).map((position, i) => 
         <div key={position?.positionName + i} className='position-item'>
-          <img src={`/asset/img/pos-logo-${position.position.toLowerCase()}.svg`} alt='position-logo' />
+          <img src={`/asset/logo/lane/lane-logo-${position.position.toLowerCase()}.svg`} alt='position-logo' />
           <div className='desc'>
             <p className='name'>{POSITIONS[position.position]}</p>
             <p className='data'>

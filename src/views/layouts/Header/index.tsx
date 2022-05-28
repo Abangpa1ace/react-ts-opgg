@@ -2,12 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import s, { container, theme } from '@/styles';
 import HeaderSearch, { ScHeaderSearch } from "./HeaderSearch";
+import ClickOutside from "@/views/components/common/hoc/RClickOutside";
 
 const Header = () => {
   return (
     <ScHeader>
       <section>
-        <HeaderSearch />
+        <ClickOutside>
+          <HeaderSearch />
+        </ClickOutside>
       </section>
     </ScHeader>
   );

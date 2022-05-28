@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
-import s, { extendHeight, showHide, theme } from '@/styles';
+import s, { extendHeight } from '@/styles';
 import SearchSummoners from './SearchSummoners';
 import SearchRecent from './SearchRecent';
 
@@ -9,14 +9,11 @@ type Props = {
 }
 
 const SearchAutoComplete: React.FC<Props> = ({ name }) => {
-  const setContents = () => {
-    console.log(name)
-    return name ? <SearchSummoners name={name} /> : <SearchRecent />
-  }
+
   return (
     <ScSearchAutoComplete>
       <div className='complete-result'>
-        {setContents()}
+        {!!name ? <SearchSummoners name={name} /> : <SearchRecent />}
       </div>
     </ScSearchAutoComplete>
   )

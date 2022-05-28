@@ -7,8 +7,9 @@ interface Options {
 
 interface returnType {
   value: string;
+  setValue: (value: string) => void;
   onChange: (
-    e: React.ChangeEvent<HTMLInputElement> | React.FocusEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>
   ) => void;
   isValid: { valid: boolean };
 }
@@ -26,7 +27,7 @@ const useInput = (options?: Options): returnType => {
     setValue(value);
   }, []);
 
-  return { value, onChange, isValid: isValid.current };
+  return { value, setValue, onChange, isValid: isValid.current };
 };
 
 export default useInput;

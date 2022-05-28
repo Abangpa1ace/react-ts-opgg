@@ -29,15 +29,18 @@ const SearchSummoners: React.FC<Props> = ({ name }) => {
 
   return (
     <ScSearchSummoners>
-      {summoners.length && summoners.map((summoner, i) => (
-        <div className='summoner-item' key={'summoner-auto-' + i}>
-          <img src={summoner?.profileImageUrl} alt='summoner-profile' />
-          <div className='text'>
-            <p className='nickname'>{summoner?.name}</p>
-            {setTierText(summoner?.leagues)}
+      {!!summoners.length 
+        ? <p className='placeholder'>결과가 없습니다!</p>
+        : summoners.map((summoner, i) => (
+          <div className='summoner-item' key={'summoner-auto-' + i}>
+            <img src={summoner?.profileImageUrl} alt='summoner-profile' />
+            <div className='text'>
+              <p className='nickname'>{summoner?.name}</p>
+              {setTierText(summoner?.leagues)}
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </ScSearchSummoners>
   )
 }
@@ -53,6 +56,8 @@ const ScSearchSummoners = styled.div` ${s('py(5);')}
     }
     &:hover ${s(`bgc(#ecf2ff);`)}
   }
+
+  .placeholder ${s(`flex-center; h(150); fs(13);`)}
 `
 
 export default SearchSummoners

@@ -8,11 +8,12 @@ type Props = {
   placeholder?: string;
   disabled?: boolean;
   onFocus?: () => void;
+  useFocusInit?: boolean; 
   onBlur?: () => void;
 };
 
-const TextInput: React.FC<Props> = ({ className, placeholder, disabled = false, initValue, updateValue, onFocus, onBlur }) => {
-  const { value, onChange } = useInput({ initValue });
+const TextInput: React.FC<Props> = ({ className, placeholder, disabled = false, initValue, updateValue, onFocus, useFocusInit, onBlur }) => {
+  const { value, setValue, onChange } = useInput({ initValue });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
@@ -20,13 +21,18 @@ const TextInput: React.FC<Props> = ({ className, placeholder, disabled = false, 
     updateValue(e.target.value);
   };
 
+  const handleFocus = () => {
+    if (useFocusInit) setValue('');
+    if (!!onFocus) onFocus()
+  }
+
   return (
     <div className={`${className} ${disabled ? 'disabled' : ''}`}>
       <input
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
-        onFocus={onFocus}
+        onFocus={handleFocus}
         onBlur={onBlur}
       />
     </div>

@@ -5,11 +5,11 @@ import TextInput from '@/views/components/common/input/TextInput';
 import useReactRouter from "@/hooks/useReactRouter";
 import SearchAutoComplete from './SearchAutoComplete';
 import { getStorage, setStorage } from '@/utils/storage';
+import RClickOutside from '@/views/components/common/hoc/RClickOutside';
 
 const HeaderSearch = () => {
   const { query: { name }, navigate } = useReactRouter();
-  // const searchName = useRef<string>('')
-  const [searchName, setSearchName] = useState<string>(name as string);
+  const [searchName, setSearchName] = useState<string>('');
   const [onAutoComplete, setOnAutoComplete] = useState<boolean>(false);
 
   const handleInput = (value: string) => {
@@ -18,24 +18,26 @@ const HeaderSearch = () => {
 
   const handleSubmit = () => {
     const recents = getStorage<string[]>('recent', false) || []
-    setStorage('recent', [...recents, searchName], false)
-    navigate(`/summoner?name=${searchName}`)
+    setStorage('recent', [...new Set([...recents, searchName])].filter(is => is), false)
+    navigate(encodeURI(`/summoner?name=${searchName}`))
   }
 
   return (
     <ScHeaderSearch className='header-search'>
-      <div className='search-wrapper'>
-        <TextInput 
-          initValue={name ? name as string : ''} 
-          updateValue={handleInput} 
-          onFocus={() => setOnAutoComplete(true)}
-          onBlur={() => setOnAutoComplete(false)}
-          placeholder='소환사명, 챔피언...' 
-          className='input' 
-        />
-        <button onClick={handleSubmit}  className='search-btn'>.GG</button>
-      </div>
-      {onAutoComplete && <SearchAutoComplete name={searchName} />}
+      <RClickOutside handleClickOutside={() => setOnAutoComplete(false)}>
+        <div className='search-wrapper'>
+          <TextInput 
+            initValue={''} 
+            updateValue={handleInput} 
+            onFocus={() => setOnAutoComplete(true)}
+            useFocusInit
+            placeholder='소환사명, 챔피언...' 
+            className='input' 
+          />
+          <button onClick={handleSubmit} className='search-btn'>.GG</button>
+        </div>
+        {onAutoComplete && <SearchAutoComplete name={searchName} />}
+      </RClickOutside>
     </ScHeaderSearch>
   )
 }
