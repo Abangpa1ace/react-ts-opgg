@@ -19,7 +19,7 @@ const getPosition = (ref: React.RefObject<HTMLSpanElement>, gap = 5): PosType =>
   const h = ref.current?.clientHeight as number
   const isAbove = rect?.top + h/2 <= window.innerHeight / 2
   console.log(isAbove)
-  const top = rect.top + (isAbove ? h+gap : -(h*2)-gap);
+  const top = rect.top + (isAbove ? h+gap : -gap);
 
   return {
     style: { left: rect?.left, top },

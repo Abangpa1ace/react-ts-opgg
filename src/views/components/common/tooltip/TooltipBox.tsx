@@ -22,7 +22,7 @@ const ScTooltipBox = styled.div`
 
   &:after ${s(`cnt(''); abs; wh(0);`)}
 
-  &.top {
+  &.top { transform: translate(calc(-50% + 12px), -100%);
     &:after ${s(`alb(50%,-6); -l(7, transparent); -r(7, transparent); -t(7, ${theme.darkGrey}); t-xc;`)}
   }
   
