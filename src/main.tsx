@@ -6,11 +6,12 @@ import { ThemeProvider } from "styled-components";
 import GlobalReset from "./styles/reset";
 import { theme } from "./styles";
 import App from "./App";
+import Loader from "@/views/layouts/Loader";
 
 ReactDOM.render(
   <StrictMode>
     <RecoilRoot>
-      <React.Suspense fallback={<div>로딩중!</div>}>
+      <React.Suspense fallback={<Loader />}>
         <ThemeProvider theme={theme}>
           <GlobalReset />
           <BrowserRouter>

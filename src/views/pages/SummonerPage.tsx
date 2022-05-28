@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import SummonerHeader from "@/views/components/summoner/SummonerHeader";
-import SummonerInfoLeft, { ScSummonerInfoLeft } from "@/views/components/summoner/SummonerInfoLeft"
-import SummonerInfoRight, { ScSummonerInfoRight } from "@/views/components/summoner/SummonerInfoRight"
-import { getItemsInfo, getSummonerInfo } from '@/services'
+import SummonerInfoLeft from "@/views/components/summoner/SummonerInfoLeft"
+// import SummonerInfoRight from "@/views/components/summoner/SummonerInfoRight"
+import { getSummonerInfo } from '@/services'
 import useReactRouter from "@/hooks/useReactRouter";
 import s from '@/styles';
+
+// const SummonerHeader = React.lazy(() => import('@/views/components/summoner/SummonerHeader'));
+// const SummonerInfoLeft = React.lazy(() => import('@/views/components/summoner/SummonerInfoLeft'));
+const SummonerInfoRight = React.lazy(() => import('@/views/components/summoner/SummonerInfoRight'));
 
 const SummonerPage = () => {
   const { query: { name } } = useReactRouter();
