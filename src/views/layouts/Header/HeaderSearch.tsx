@@ -8,35 +8,50 @@ import { getStorage, setStorage } from '@/utils/storage';
 import RClickOutside from '@/views/components/common/hoc/RClickOutside';
 
 const HeaderSearch = () => {
-  const { query: { name }, navigate } = useReactRouter();
+  const { navigate } = useReactRouter();
   const [searchName, setSearchName] = useState<string>('');
   const [onAutoComplete, setOnAutoComplete] = useState<boolean>(false);
+
+  const recordStorage = (name: string) => {
+    const recents = getStorage<string[]>('recent', false) || []
+    const newRecents = [...new Set([...recents, name.trim()].filter(is => is).reverse())].slice(0,10)
+    setStorage('recent', newRecents, false)
+  }
+  
+  const goToSummonerPage = (name: string) => navigate(encodeURI(`/summoner?name=${name.trim()}`))
 
   const handleInput = (value: string) => {
     setSearchName(value)
   }
 
-  const handleSubmit = () => {
-    const recents = getStorage<string[]>('recent', false) || []
-    setStorage('recent', [...new Set([...recents, searchName])].filter(is => is), false)
-    navigate(encodeURI(`/summoner?name=${searchName}`))
+  const handleFocus = () => {
+    setSearchName('')
+    setOnAutoComplete(true);
+  }
+
+  const routeToSearchSummoner = (name: string) => {
+    if (!name.trim()) navigate('/summoner')
+    else {
+      setOnAutoComplete(false);
+      recordStorage(name)
+      goToSummonerPage(name);
+    }
   }
 
   return (
     <ScHeaderSearch className='header-search'>
       <RClickOutside handleClickOutside={() => setOnAutoComplete(false)}>
         <div className='search-wrapper'>
-          <TextInput 
-            initValue={''} 
+          <TextInput
             updateValue={handleInput} 
-            onFocus={() => setOnAutoComplete(true)}
+            onFocus={handleFocus}
             useFocusInit
             placeholder='소환사명, 챔피언...' 
             className='input' 
           />
-          <button onClick={handleSubmit} className='search-btn'>.GG</button>
+          <button onClick={() => routeToSearchSummoner(searchName)} className='search-btn'>.GG</button>
         </div>
-        {onAutoComplete && <SearchAutoComplete name={searchName} />}
+        {onAutoComplete && <SearchAutoComplete name={searchName} onClickItem={routeToSearchSummoner} />}
       </RClickOutside>
     </ScHeaderSearch>
   )

@@ -9,6 +9,7 @@ import s from '@/styles';
 
 const SummonerPage = () => {
   const { query: { name } } = useReactRouter();
+
   const [summonerInfo, setSummonerInfo] = useState<SummonerDto>(null)
 
   useEffect(() => {
@@ -25,8 +26,13 @@ const SummonerPage = () => {
       <SummonerHeader summoner={summonerInfo} />
       <main className="summoner-info">
         <section className="container">
-          <SummonerInfoLeft summoner={summonerInfo} />
-          <SummonerInfoRight />
+          {!name
+            ? <p>no!</p>
+            : <>
+                <SummonerInfoLeft summoner={summonerInfo} />
+                <SummonerInfoRight />
+              </>
+          }
         </section>
       </main>
     </ScSummonerPage>

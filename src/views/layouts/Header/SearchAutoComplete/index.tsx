@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import styled, { keyframes } from 'styled-components'
-import s, { extendHeight } from '@/styles';
+import React from 'react'
+import styled from 'styled-components'
+import s from '@/styles';
 import SearchSummoners from './SearchSummoners';
 import SearchRecent from './SearchRecent';
 
 type Props = {
   name: string;
+  onClickItem: (name: string) => void;
 }
 
-const SearchAutoComplete: React.FC<Props> = ({ name }) => {
+const SearchAutoComplete: React.FC<Props> = ({ name, onClickItem }) => {
+  
 
   return (
     <ScSearchAutoComplete>
       <div className='complete-result'>
-        {!!name ? <SearchSummoners name={name} /> : <SearchRecent />}
+        {!!name ? <SearchSummoners name={name} onClickItem={onClickItem} /> : <SearchRecent onClickItem={onClickItem} />}
       </div>
     </ScSearchAutoComplete>
   )
@@ -21,7 +23,6 @@ const SearchAutoComplete: React.FC<Props> = ({ name }) => {
 
 const ScSearchAutoComplete = styled.div` ${s(`abs; alt(0,38); wf; max-h(200); bgc(#fff); br(2); z(1100);`)}
   
-  /* animation: ${extendHeight('160px')} .3s ease forwards; */
 `
 
 export default SearchAutoComplete

@@ -4,12 +4,16 @@ import styled from 'styled-components'
 import s, { theme } from '@/styles';
 import SearchRecentItem from './SearchRecentItem';
 
+type Props = {
+  onClickItem: (name: string) => void;
+}
+
 const tabData: StringObject = {
   recent: '최근검색',
   like: '즐겨찾기',
 }
 
-const SearchRecent: React.FC = () => {
+const SearchRecent: React.FC<Props> = ({ onClickItem }) => {
   const recents = useRef<string[]>(getStorage<string[]>('recent', false) || []);
   const likes = useRef<string[]>(getStorage<string[]>('like') || []);
 
@@ -63,9 +67,11 @@ const SearchRecent: React.FC = () => {
               <SearchRecentItem 
                 name={name} needDelete={isRecent} key={name + i}
                 isLike={focusTab === 'like' ? true :  likes.current.includes(name)}
-                onClickDelete={deleteRecent} onToggleLike={toggleLike}
+                onClickItem={onClickItem} onClickDelete={deleteRecent} onToggleLike={toggleLike}
               />)
-            : <p className='placeholder'>결과가 없습니다!</p>
+            : <p className='placeholder'>
+                {isRecent ? '최근 검색한' : '즐겨찾기한'} 소환사가 없습니다!
+              </p>
         }
       </ul>
     )

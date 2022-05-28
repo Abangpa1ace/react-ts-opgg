@@ -8,11 +8,12 @@ type Props = {
   name: string
   needDelete?: boolean;
   isLike: boolean;
+  onClickItem: (name: string) => void;
   onToggleLike: (name: string) => void;
   onClickDelete: (name: string) => void;
 }
 
-const SearchRecentItem: React.FC<Props> = ({ name, needDelete, isLike, onClickDelete, onToggleLike }) => {
+const SearchRecentItem: React.FC<Props> = ({ name, needDelete, isLike, onClickItem, onClickDelete, onToggleLike }) => {
   const [like, setLike] = useState<boolean>(isLike);
 
   const handleToggleLike = () => {
@@ -21,7 +22,7 @@ const SearchRecentItem: React.FC<Props> = ({ name, needDelete, isLike, onClickDe
   }
 
   return (
-    <ScSearchRecentItem>
+    <ScSearchRecentItem onClick={() => onClickItem(name)}>
       <p className='name'>{name}</p>
       <div className='buttons'>
         <button onClick={handleToggleLike} className='like-btn'>
@@ -34,7 +35,8 @@ const SearchRecentItem: React.FC<Props> = ({ name, needDelete, isLike, onClickDe
 }
 
 const ScSearchRecentItem = styled.li` 
-  ${s(`flex-center; flex-jc(space-between); h(40); p(4,15); bgc(#fff);`)}
+  ${s(`flex-center; flex-jc(space-between); h(40); my(4); p(4,15); bgc(#fff); pointer;`)}
+  &:hover ${s(`bgc(${theme.white});`)}
   
   .name ${s(`c(${theme.slateGrey}); fs(12);`)}
 

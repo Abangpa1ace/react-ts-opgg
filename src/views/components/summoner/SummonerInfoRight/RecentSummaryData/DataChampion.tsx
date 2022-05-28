@@ -14,7 +14,7 @@ const DataChampion: React.FC<Props> = ({ champions }) => {
         const champion = champions[idx]
         const scoreInfo =setAverScore(champion);
           return (
-            <div key={champion?.id + idx} className='champion-item'>
+            <div key={`${champion?.id}-${idx}`} className='champion-item'>
               <img src={champion?.imageUrl || '/asset/img/empty-champion.svg'} />
               <div className='desc'>
                 {!!champion

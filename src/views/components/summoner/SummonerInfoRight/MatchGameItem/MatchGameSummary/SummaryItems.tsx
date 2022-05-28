@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import s, { theme } from '@/styles';
 import { getStatus } from '@/utils/data';
 import { STATUS_STYLES } from '@/constants';
+import RPortalTooltip from '@/views/components/common/hoc/RPortalToolTip';
 
 type Props = {
   match: MatchGameType
@@ -17,7 +18,9 @@ const SummaryItems: React.FC<Props> = ({ match }) => {
     return Array.from({ length: 6 }, (_,i) => i).map(i => {
       const item = buyItems[i];
       return item 
-        ? <img src={item.imageUrl} className='image-item' key={item.imageUrl + i} /> 
+        ? <RPortalTooltip message={'hihihihihihihihihihi!'} key={item.imageUrl + i} className='image-item'>
+            <img src={item.imageUrl} />
+          </RPortalTooltip>
         : <span className='image-item placeholder' style={{ background: style.placeholderBackground }} key={'no-item' + i} />
     })
   }
@@ -45,7 +48,8 @@ const ScSummaryItems = styled.li` ${s('w(94); ml(26);')}
     grid-template-rows: repeat(2, 1fr);
     grid-auto-flow: column;
 
-    .image-item { ${s('wh(22); br(2); crop;')}
+    .image-item { ${s('wh(22);')}
+      img ${s('wf; hf; br(2);')}
       &.item-logo ${s('flex-center; br(50%); fs(7); bold; c(#fff);')}
     }
   }

@@ -10,7 +10,12 @@ const GlobalReset = createGlobalStyle`
   }
   body {}
   #root {
-    height: 100vh;
+    min-height: 100vh;
+  }
+  #tooltip-root {
+    position: fixed;
+    left: 0;
+    top: 0;
   }
   ul, li {
     list-style: none;

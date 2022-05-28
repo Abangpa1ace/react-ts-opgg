@@ -6,7 +6,7 @@ type Props = {
   handleClickOutside: () => void;
 }
 
-const useClickOutside = (ref: React.RefObject<HTMLDivElement>, handler: () => void) => {
+const useClickOutside = (ref: React.RefObject<HTMLSpanElement>, handler: Function) => {
   useEffect(() => {
     const handleClickOutside = (e: any) => {
       if (ref.current && !ref.current.contains(e.target)) {
@@ -14,15 +14,15 @@ const useClickOutside = (ref: React.RefObject<HTMLDivElement>, handler: () => vo
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, [ref])
 }
 
 const RClickOutside: React.FC<Props> = ({ children, handleClickOutside }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLSpanElement>(null);
   useClickOutside(ref, handleClickOutside);
 
   return (
@@ -32,7 +32,7 @@ const RClickOutside: React.FC<Props> = ({ children, handleClickOutside }) => {
   )
 }
 
-const ScClickOutside = styled.div`
+const ScClickOutside = styled.span`
   
 `
 

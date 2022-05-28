@@ -6,9 +6,10 @@ import { setTierRankText } from '@/utils/common';
 
 type Props = {
   name: string;
+  onClickItem: (name: string) => void;
 }
 
-const SearchSummoners: React.FC<Props> = ({ name }) => {
+const SearchSummoners: React.FC<Props> = ({ name, onClickItem }) => {
   const [summoners, setSummoners] = useState<SummonerDto[]>([]);
 
   useEffect(() => {
@@ -29,10 +30,10 @@ const SearchSummoners: React.FC<Props> = ({ name }) => {
 
   return (
     <ScSearchSummoners>
-      {!!summoners.length 
-        ? <p className='placeholder'>결과가 없습니다!</p>
+      {!summoners.length 
+        ? <p className='placeholder'>일치하는 소환사가 없습니다!</p>
         : summoners.map((summoner, i) => (
-          <div className='summoner-item' key={'summoner-auto-' + i}>
+          <div className='summoner-item' key={'summoner-auto-' + i} onClick={() => onClickItem(summoner?.name as string)}>
             <img src={summoner?.profileImageUrl} alt='summoner-profile' />
             <div className='text'>
               <p className='nickname'>{summoner?.name}</p>
