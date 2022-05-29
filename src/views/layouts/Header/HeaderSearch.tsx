@@ -30,7 +30,7 @@ const HeaderSearch = () => {
   }
 
   const routeToSearchSummoner = (name: string) => {
-    if (!name.trim()) navigate('/summoner')
+    if (!name.trim()) alert('소환사명을 입력해주세요!')
     else {
       setOnAutoComplete(false);
       recordStorage(name)
@@ -38,8 +38,12 @@ const HeaderSearch = () => {
     }
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') routeToSearchSummoner(searchName)
+  }
+
   return (
-    <ScHeaderSearch className='header-search'>
+    <ScHeaderSearch className='header-search' onKeyDown={handleKeyDown}>
       <RClickOutside handleClickOutside={() => setOnAutoComplete(false)}>
         <div className='search-wrapper'>
           <TextInput

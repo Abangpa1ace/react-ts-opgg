@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
   return (
     <ScHomePage>
       <section className="container">
-        <img src='/public/asset/img/main-banner.png' alt='main-banner' />
+        <img src='/asset/img/main-banner.png' alt='main-banner' />
         <h3>우측 상단 검색창에 소환사명을 검색해주세요!</h3>
       </section>
     </ScHomePage>

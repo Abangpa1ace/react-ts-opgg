@@ -1,20 +1,32 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import s from '@/styles';
 
 const Loader = () => {
   return (
     <ScLoader>
-      <p>로딩중!!</p>
+      <div className='loader' />
     </ScLoader>
   )
 }
 
-const ScLoader = styled.div` ${s('fix; alt(0,0); flex-center; bgc(rgba(0,0,0,0.7));')}
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`
+
+const ScLoader = styled.div` ${s('fix; alt(0,0); flex-center; bgc(rgba(0,0,0,0.2));')}
   width: 100vw;
   height: 100vh;
 
-  p ${s('c(#fff); fs(20);')};
+  .loader{ 
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: ${spin} 2s linear infinite;
+  }
 `
 
 export default Loader

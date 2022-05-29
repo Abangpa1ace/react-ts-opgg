@@ -50,13 +50,19 @@ const SummonerInfoRight: React.FC = () => {
     <ScSummonerInfoRight>
       <GameTabs>{setGameTabs()}</GameTabs>
       <RecentSummaryData summonerMatches={summonerMatches} />
-      {showMatchGames?.map(match => <MatchGameItem match={match} key={match.gameId}/>)}
+      <div className={`match-game-list ${!showMatchGames.length ? 'empty' : ''}`}>
+        {!!showMatchGames.length ? showMatchGames?.map(match => <MatchGameItem match={match} key={match.gameId}/>) : '매치정보를 불러오지 못했습니다!'}
+      </div>
     </ScSummonerInfoRight>
   )
 }
 
 export const ScSummonerInfoRight = styled.div` 
-  
+  .match-game-list { ${s('mt(16);')}
+    &.empty { ${s(`flex-center; bgc(${theme.white5}); -a(${theme.silver3}); fs(15); c(${theme.greyishBrown})`)};
+      height: calc(100vh - 500px);
+    }
+  }
 `
 
 const GameTabs = styled.nav` ${s(`flex; gap(24); h(36); px(16); bgc(${theme.white4}); -a(${theme.silver3}); -b(transparent);`)}

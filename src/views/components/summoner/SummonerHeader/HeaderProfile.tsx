@@ -5,9 +5,10 @@ import { setComma } from '@/utils/number';
 
 type Props = {
   summoner: SummonerDto;
+  isInvalid: boolean;
 }
 
-const HeaderProfile: React.FC<Props> = ({ summoner }) => {
+const HeaderProfile: React.FC<Props> = ({ summoner, isInvalid }) => {
   const setLadderRank = () => {
     return (
       <>
@@ -19,14 +20,20 @@ const HeaderProfile: React.FC<Props> = ({ summoner }) => {
 
   return (
     <ScHeaderProfile>
-      <div className='image-wrapper'>
-        <img src={summoner?.profileImageUrl} className='profile-image' alt='profile-image' />
-        <img src={summoner?.profileBorderImageUrl} className='profile-border' alt='profile-border' />
-        <span className='level'>{summoner?.level}</span>
+      <div className={`image-wrapper ${isInvalid ? 'invalid' : ''}`}>
+        {!isInvalid &&
+          <>
+            <img src={summoner?.profileImageUrl} className='profile-image' alt='profile-image' />
+            <img src={summoner?.profileBorderImageUrl} className='profile-border' alt='profile-border' />
+            <span className='level'>{summoner?.level}</span>
+          </>
+        }
       </div>
       <div className='info-wrapper'>
-        <h4 className='nickname'>{summoner?.name}</h4>
-        <p className='ladder-rank'>{setLadderRank()}</p>
+        <h4 className='nickname'>
+          {!isInvalid ? summoner?.name : '존재하지 않는 소환사'}
+        </h4>
+        {!isInvalid && <p className='ladder-rank'>{setLadderRank()}</p>}
       </div>
     </ScHeaderProfile>
   )
@@ -46,6 +53,8 @@ const ScHeaderProfile = styled.div` ${s('flex; mt(6);')}
         background: linear-gradient(#f6e08f, #ca9a2c);
       }
     }
+
+    &.invalid ${s(`bgc(${theme.silver2}); br(4);`)}
   }
 
   .info-wrapper { ${s('ml(17); pt(11);')}

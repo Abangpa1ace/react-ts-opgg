@@ -1,5 +1,5 @@
 
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 const instance = axios.create({
   headers: {
@@ -13,9 +13,13 @@ const instance = axios.create({
 
 const responseBody = (res: AxiosResponse) => res.data;
 
+const errorHandler = (err: AxiosError) => {
+  console.log(err.message)
+  throw err
+}
+
 const api = {
-  get: async <R>(url: string, params?: object): Promise<R> => await instance.get(url, params).then(responseBody),
-  post: async <P, R>(url: string, params: P): Promise<R> => await instance.post(url, params).then(responseBody),
+  get: async <R>(url: string, params?: object): Promise<R> => await instance.get(url, params).then(responseBody).catch(errorHandler),
 }
 
 export const getSummonerInfo = (name: string) => api.get<{ summoner: SummonerDto }>(`/summoner/${name}`).then(res => res.summoner)

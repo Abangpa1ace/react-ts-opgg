@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { container } from "@/styles";
 import { useRoutes } from "react-router-dom";
+import s from '@/styles'
 import RouterTitle from "react-router-title";
 import HomePage from "@/views/pages/HomePage";
+import ErrorPage from "@/views/pages/ErrorPage";
 import pages from "./pages";
-import s from '@/styles'
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     element: <HomePage />,
   },
   ...pages,
+  {
+    path: '/error',
+    title: 'Error Occured',
+    element: <ErrorPage />
+  }
 ];
 
 const Router = () => {
@@ -20,7 +26,7 @@ const Router = () => {
 
   return (
     <ScRouter className="router">
-      <RouterTitle routesConfig={routes} />
+      <RouterTitle pageTitle='OP.GG 클론' routesConfig={routes} />
       {router}
     </ScRouter>
   );

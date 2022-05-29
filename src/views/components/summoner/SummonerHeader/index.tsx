@@ -7,14 +7,15 @@ import HeaderProfile from './HeaderProfile';
 
 type Props = {
   summoner: SummonerDto;
+  isInvalid: boolean
 }
 
-const SummonerHeader: React.FC<Props> = ({ summoner }) => {
+const SummonerHeader: React.FC<Props> = ({ summoner, isInvalid }) => {
   return (
     <ScSummonerHeader>
       <section className='container'>
-        <HeaderPrevTiers previousTiers={summoner?.previousTiers} />
-        <HeaderProfile summoner={summoner} />
+        <HeaderPrevTiers previousTiers={summoner?.previousTiers} isInvalid={isInvalid} />
+        <HeaderProfile summoner={summoner} isInvalid={isInvalid} />
       </section>
     </ScSummonerHeader>
   )

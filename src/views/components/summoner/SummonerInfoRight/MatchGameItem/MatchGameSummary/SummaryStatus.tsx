@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import s, { theme } from '@/styles';
 import { STATUS_STYLES } from '@/constants';
 import { getStatus } from '@/utils/data';
+import { getDateTimeDiff } from '@/utils/dateTime';
 
 type Props = {
   match: MatchGameType
@@ -21,7 +22,7 @@ const SummaryStatus: React.FC<Props> = ({ match }) => {
   return (
     <ScSummaryStatus>
       <p className='status'>{match.gameType}</p>
-      <p className='date'>하루전</p>
+      <p className='date'>{getDateTimeDiff(match.createDate)}</p>
       <div className='divider' style={{ border: `1px solid ${style.thirdBorder}` }} />
       <p className='status-text' style={{ color: style.color }}>{statusText[status]}</p>
       <p className='time'>{`${match.gameLength}`.slice(0,2)}분 {`${match.gameLength}`.slice(2)}초</p>

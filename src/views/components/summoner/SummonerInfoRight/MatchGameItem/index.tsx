@@ -20,7 +20,7 @@ const MatchGameItem: React.FC<Props> = ({ match }) => {
 }
 
 const ScMatchGameItem = styled.div`
-  ${s('mt(16);')}
+  ${s('mb(16);')}
 `
 
 export default MatchGameItem

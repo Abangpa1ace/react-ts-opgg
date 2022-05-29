@@ -6,12 +6,10 @@ type Props = {
   handleClickOutside: () => void;
 }
 
-const useClickOutside = (ref: React.RefObject<HTMLSpanElement>, handler: Function) => {
+const useClickOutside = (ref: React.RefObject<HTMLSpanElement>, handler: () => void) => {
   useEffect(() => {
     const handleClickOutside = (e: any) => {
-      if (ref.current && !ref.current.contains(e.target)) {
-        handler()
-      }
+      if (ref.current && !ref.current.contains(e.target)) handler();
     }
 
     document.addEventListener("click", handleClickOutside);
