@@ -15,7 +15,7 @@ const spin = keyframes`
   100% { transform: rotate(360deg); }
 `
 
-const ScLoader = styled.div` ${s('fix; alt(0,0); flex-center; bgc(rgba(0,0,0,0.2));')}
+const ScLoader = styled.div` ${s('fix; alt(0,0); flex-center; bgc(rgba(0,0,0,0.6));')}
   width: 100vw;
   height: 100vh;
 

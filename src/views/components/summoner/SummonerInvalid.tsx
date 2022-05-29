@@ -5,7 +5,7 @@ import s from '@/styles';
 const SummonerInvalid: React.FC = () => {
   return (
     <ScSummonerInvalid>
-      <img src='/public/asset/img/invalid-summoner.png' alt='invalid-summoner' />
+      <img src='/asset/img/invalid-summoner.png' alt='invalid-summoner' />
     </ScSummonerInvalid>
   )
 }

@@ -4,14 +4,15 @@ import { getSummonerInfo } from '@/services'
 import useReactRouter from "@/hooks/useReactRouter";
 import s from '@/styles';
 import { AxiosError } from "axios";
-import SummonerInvalid from "../components/summoner/SummonerInvalid";
+import SummonerInvalid from "@/views/components/summoner/SummonerInvalid";
+import Loader from "../layouts/Loader";
 
 const SummonerHeader = React.lazy(() => import('@/views/components/summoner/SummonerHeader'));
 const SummonerInfoLeft = React.lazy(() => import('@/views/components/summoner/SummonerInfoLeft'));
 const SummonerInfoRight = React.lazy(() => import('@/views/components/summoner/SummonerInfoRight'));
 
 const SummonerPage = () => {
-  const { query: { name } } = useReactRouter();
+  const { navigate, query: { name } } = useReactRouter();
   
   const [summonerInfo, setSummonerInfo] = useState<SummonerDto>(null)
   
@@ -34,7 +35,7 @@ const SummonerPage = () => {
     }
     catch(e) {
       const error = e as AxiosError;
-      if (error.message === 'Network Error') location.assign('/error')
+      if (error.message === 'Network Error') navigate('/error')
     }
   }
 
@@ -43,12 +44,11 @@ const SummonerPage = () => {
       <SummonerHeader summoner={summonerInfo} isInvalid={isInvalid} />
       <main className="summoner-info">
         <section className="container">
-          {isInvalid
-            ? <SummonerInvalid />
-            : <>
-                <SummonerInfoLeft summoner={summonerInfo} />
-                <SummonerInfoRight />
-              </>
+          {isInvalid ? <SummonerInvalid /> : 
+            <>
+              <SummonerInfoLeft summoner={summonerInfo} />
+              <SummonerInfoRight />
+            </>
           }
         </section>
       </main>
